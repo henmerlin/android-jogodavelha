@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_app"
+    tools:context="android.br.jogodavelha.MainActivity">
+
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3">
+
+        <ImageView
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/o" />
+
+        <ImageView
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:background="@drawable/border"
+            android:src="@drawable/x" />
+
+        <ImageView
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/vazio" />
+
+        <ImageView
+            android:background="@drawable/border"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/vazio" />
+
+        <ImageView
+            android:background="@drawable/border"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/vazio" />
+
+        <ImageView
+            android:background="@drawable/border"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/vazio" />
+
+        <ImageView
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/vazio" />
+
+        <ImageView
+            android:background="@drawable/border"
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/vazio" />
+
+        <ImageView
+            android:layout_width="@dimen/image"
+            android:layout_height="@dimen/image"
+            android:scaleType="centerInside"
+            android:src="@drawable/vazio" />
+    </GridLayout>
+</LinearLayout>
