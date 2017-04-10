@@ -2,6 +2,8 @@ package android.br.jogodavelha.listener;
 
 import android.br.jogodavelha.MainActivity;
 import android.br.jogodavelha.R;
+import android.br.jogodavelha.exception.EmpateException;
+import android.br.jogodavelha.exception.VencedorException;
 import android.br.jogodavelha.model.CampoJogo;
 import android.br.jogodavelha.model.JogadorType;
 import android.br.jogodavelha.model.JogoDaVelha;
@@ -30,6 +32,12 @@ public class CustomListener implements View.OnClickListener {
             j.alterarJogador();
             activity.getMensagem().setText(j.getMensagem());
             activity.getVez().setText(j.getVez().name());
+        } catch (EmpateException e) {
+            changeImage();
+            activity.getMensagem().setText(j.getMensagem());
+        } catch (VencedorException e) {
+            changeImage();
+            activity.getMensagem().setText(j.getMensagem());
         } catch (Exception e) {
             activity.getMensagem().setText(e.getMessage());
         }

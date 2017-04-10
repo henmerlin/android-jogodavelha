@@ -1,6 +1,8 @@
 package android.br.jogodavelha.model;
 
 import android.br.jogodavelha.exception.BloqueadoException;
+import android.br.jogodavelha.exception.CampoPreenchidorException;
+import android.br.jogodavelha.exception.EmpateException;
 import android.br.jogodavelha.exception.VencedorException;
 
 import java.util.ArrayList;
@@ -38,9 +40,9 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
         }
     }
 
-    public void realizarJogada(CampoJogo c) throws VencedorException, BloqueadoException {
+    public void realizarJogada(CampoJogo c) throws VencedorException, BloqueadoException, CampoPreenchidorException, EmpateException {
 
-        if(this.blocked){
+        if (this.blocked) {
             throw new BloqueadoException();
         }
         try {
@@ -49,12 +51,18 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
         } catch (VencedorException e) {
             this.mensagem = e.getMessage();
             this.blocked = true;
+            throw e;
         } catch (BloqueadoException e) {
             this.mensagem = e.getMessage();
             this.blocked = true;
-            return;
-        } catch (Exception e) {
+            throw e;
+        } catch (EmpateException e) {
             this.mensagem = e.getMessage();
+            this.blocked = true;
+            throw e;
+        } catch (CampoPreenchidorException e) {
+            this.mensagem = e.getMessage();
+            throw e;
         }
 
     }
@@ -80,7 +88,16 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
 
     }
 
-    protected void verificarJogoAcabou() throws VencedorException, BloqueadoException {
+    protected Boolean verificarEmpate() {
+        for (CampoJogo c : this.getCampos()) {
+            if(c.getDono() == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected void verificarJogoAcabou() throws VencedorException, BloqueadoException, EmpateException {
         JogadorType j;
 
         j = jogoAcabouDiagonais();
@@ -94,6 +111,20 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
             this.vencedor = j;
             throw new VencedorException(this.vencedor.name());
         }
+
+        j = jogaAcabouColunas();
+        if (j != null) {
+            this.vencedor = j;
+            throw new VencedorException(this.vencedor.name());
+        }
+
+        if(verificarEmpate()){
+            this.vencedor = null;
+            this.blocked = true;
+            throw new EmpateException();
+        }
+
+
     }
 
     protected JogadorType jogoAcabouDiagonais() throws BloqueadoException {
@@ -134,6 +165,25 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
             jts.add(buscaCampo(new CampoJogo(i, 1)));
             jts.add(buscaCampo(new CampoJogo(i, 2)));
             jts.add(buscaCampo(new CampoJogo(i, 3)));
+            // Retas
+            t = this.validarJogo(jts);
+            if (t != null) {
+                return t;
+            }
+        }
+
+        return null;
+    }
+
+    protected JogadorType jogaAcabouColunas() throws BloqueadoException {
+
+        JogadorType t;
+
+        for (int i = 1; i <= 3; i++) {
+            List<CampoJogo> jts = new ArrayList<>();
+            jts.add(buscaCampo(new CampoJogo(1, i)));
+            jts.add(buscaCampo(new CampoJogo(2, i)));
+            jts.add(buscaCampo(new CampoJogo(3, i)));
             // Retas
             t = this.validarJogo(jts);
             if (t != null) {

@@ -1,5 +1,7 @@
 package android.br.jogodavelha.model;
 
+import android.br.jogodavelha.exception.CampoPreenchidorException;
+
 import java.util.List;
 
 /**
@@ -54,9 +56,9 @@ public class CampoJogo {
         return dono;
     }
 
-    public void setDono(JogadorType dono) throws Exception {
+    public void setDono(JogadorType dono) throws CampoPreenchidorException {
         if(this.dono != null){
-            throw new Exception("Campo já preenchido, Tente novamente!");
+            throw new CampoPreenchidorException();
         }
         this.dono = dono;
     }
