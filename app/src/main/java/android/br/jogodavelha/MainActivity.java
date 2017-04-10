@@ -73,10 +73,8 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 if(et.getDono().equals(JogadorType.O)){
                     im.setImageDrawable(getDrawable(R.drawable.o));
-                }if(et.getDono().equals(JogadorType.X)){
-                    im.setImageDrawable(getDrawable(R.drawable.x));
                 }else{
-                    im.setImageDrawable(getDrawable(R.drawable.vazio));
+                    im.setImageDrawable(getDrawable(R.drawable.x));
                 }
             }
             i++;
