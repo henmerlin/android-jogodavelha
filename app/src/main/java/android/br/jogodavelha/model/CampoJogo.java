@@ -17,7 +17,7 @@ public class CampoJogo {
         this.coluna = coluna;
     }
 
-    public Boolean equals(CampoJogo c) {
+    public Boolean igual(CampoJogo c) {
         return this.linha.equals(c.getLinha()) && this.coluna.equals(c.getColuna());
     }
 
@@ -54,7 +54,10 @@ public class CampoJogo {
         return dono;
     }
 
-    public void setDono(JogadorType dono) {
+    public void setDono(JogadorType dono) throws Exception {
+        if(this.dono != null){
+            throw new Exception("Campo já preenchido, Tente novamente!");
+        }
         this.dono = dono;
     }
 }

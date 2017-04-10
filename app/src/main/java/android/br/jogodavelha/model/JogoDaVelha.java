@@ -1,5 +1,8 @@
 package android.br.jogodavelha.model;
 
+import android.br.jogodavelha.exception.BloqueadoException;
+import android.br.jogodavelha.exception.VencedorException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +18,13 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
 
     private JogadorType vez;
 
+    private String mensagem;
+
+    private Boolean blocked;
+
     public JogoDaVelha() {
         this.vez = JogadorType.O;
+        this.blocked = false;
         this.vencedor = null;
         this.campos = new ArrayList<>();
         this.load();
@@ -30,19 +38,41 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
         }
     }
 
-    public void realizarJogada(CampoJogo c) {
-        this.buscaCampo(c).setDono(vez);
-        this.verificarJogoAcabou();
-        this.alterarJogador();
+    public void realizarJogada(CampoJogo c) throws VencedorException, BloqueadoException {
+
+        if(this.blocked){
+            throw new BloqueadoException();
+        }
+        try {
+            this.buscaCampo(c).setDono(vez);
+            this.verificarJogoAcabou();
+        } catch (VencedorException e) {
+            this.mensagem = e.getMessage();
+            this.blocked = true;
+        } catch (BloqueadoException e) {
+            this.mensagem = e.getMessage();
+            this.blocked = true;
+            return;
+        } catch (Exception e) {
+            this.mensagem = e.getMessage();
+        }
+
     }
 
     public void realizarJogadaForced(CampoJogo c, JogadorType j) {
-        this.buscaCampo(c).setDono(j);
-        this.verificarJogoAcabou();
+        try {
+            this.buscaCampo(c).setDono(j);
+            this.verificarJogoAcabou();
+        } catch (VencedorException e) {
+            this.mensagem = e.getMessage();
+            this.blocked = true;
+        } catch (Exception e) {
+            this.mensagem = e.getMessage();
+        }
     }
 
-    protected void alterarJogador() {
-        if (vez.equals(JogadorType.O)) {
+    public void alterarJogador() {
+        if (vez == JogadorType.O) {
             this.vez = JogadorType.X;
         } else {
             this.vez = JogadorType.O;
@@ -50,21 +80,23 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
 
     }
 
-    protected void verificarJogoAcabou() {
+    protected void verificarJogoAcabou() throws VencedorException, BloqueadoException {
         JogadorType j;
 
         j = jogoAcabouDiagonais();
         if (j != null) {
             this.vencedor = j;
+            throw new VencedorException(this.vencedor.name());
         }
 
         j = jogaAcabouRetas();
         if (j != null) {
             this.vencedor = j;
+            throw new VencedorException(this.vencedor.name());
         }
     }
 
-    protected JogadorType jogoAcabouDiagonais() {
+    protected JogadorType jogoAcabouDiagonais() throws BloqueadoException {
 
         JogadorType t;
 
@@ -93,7 +125,7 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
         return null;
     }
 
-    protected JogadorType jogaAcabouRetas() {
+    protected JogadorType jogaAcabouRetas() throws BloqueadoException {
 
         JogadorType t;
 
@@ -102,7 +134,6 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
             jts.add(buscaCampo(new CampoJogo(i, 1)));
             jts.add(buscaCampo(new CampoJogo(i, 2)));
             jts.add(buscaCampo(new CampoJogo(i, 3)));
-
             // Retas
             t = this.validarJogo(jts);
             if (t != null) {
@@ -113,9 +144,12 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
         return null;
     }
 
-    protected CampoJogo buscaCampo(CampoJogo c) {
+    protected CampoJogo buscaCampo(CampoJogo c) throws BloqueadoException {
+        if (this.blocked) {
+            throw new BloqueadoException();
+        }
         for (CampoJogo cp : campos) {
-            if (cp.equals(c)) {
+            if (cp.igual(c)) {
                 return cp;
             }
         }
@@ -144,5 +178,13 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
 
     public void setVez(JogadorType vez) {
         this.vez = vez;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }
