@@ -1,5 +1,7 @@
 package android.br.jogodavelha.model;
 
+import java.util.List;
+
 /**
  * Created by G0042204 on 09/04/2017.
  */
@@ -10,10 +12,26 @@ public class CampoJogo {
 
     private JogadorType dono;
 
-
     public CampoJogo(Integer linha, Integer coluna) {
         this.linha = linha;
         this.coluna = coluna;
+    }
+
+    public Boolean equals(CampoJogo c) {
+        return this.linha.equals(c.getLinha()) && this.coluna.equals(c.getColuna());
+    }
+
+    public Boolean isMesmoDono(JogadorType j) {
+        return this.dono.equals(j);
+    }
+
+    public Boolean isMesmoDono(List<JogadorType> jts) {
+        for (JogadorType t : jts) {
+            if (!t.equals(dono)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Integer getColuna() {
@@ -30,5 +48,13 @@ public class CampoJogo {
 
     public void setColuna(Integer coluna) {
         this.coluna = coluna;
+    }
+
+    public JogadorType getDono() {
+        return dono;
+    }
+
+    public void setDono(JogadorType dono) {
+        this.dono = dono;
     }
 }

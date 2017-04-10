@@ -13,19 +13,17 @@ import static org.junit.Assert.assertEquals;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class JogoDaVelhaFacadeUnitTest {
+public class JogoDaVelhaFacadeForcedUnitTest {
 
     private JogoDaVelha j;
 
     @Test
-    public void test_JogoDaVelha() throws Exception {
+    public void test_JogoDaVelhaForce() throws Exception {
         j = new JogoDaVelha();
-
-        j.realizarJogada(new CampoJogo(1, 1));
-        j.realizarJogada(new CampoJogo(1, 2));
-        j.realizarJogada(new CampoJogo(1, 3));
-
-        assertEquals(4, 2 + 2);
+        JogadorType vencedor = JogadorType.O;
+        j.realizarJogadaForced(new CampoJogo(1, 1), vencedor);
+        j.realizarJogadaForced(new CampoJogo(1, 2), vencedor);
+        j.realizarJogadaForced(new CampoJogo(1, 3), vencedor);
+        assertEquals(j.getVencedor(), vencedor);
     }
-
 }
