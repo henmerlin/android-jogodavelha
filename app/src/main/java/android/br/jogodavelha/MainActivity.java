@@ -1,8 +1,8 @@
 package android.br.jogodavelha;
 
-import android.br.jogodavelha.R;
 import android.br.jogodavelha.listener.CustomListener;
 import android.br.jogodavelha.model.CampoJogo;
+import android.br.jogodavelha.model.JogadorType;
 import android.br.jogodavelha.model.JogoDaVelha;
 import android.br.jogodavelha.model.JogoDaVelhaSingleton;
 import android.os.Bundle;
@@ -55,4 +55,34 @@ public class MainActivity extends AppCompatActivity {
     public TextView getVez() {
         return vez;
     }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * Teste
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        int i = 0;
+        for (CampoJogo et : this.j.getCampos()) {
+            ImageView im = this.imgs.get(i);
+            if(et.getDono() == null){
+                im.setImageDrawable(getDrawable(R.drawable.vazio));
+            }else{
+                if(et.getDono().equals(JogadorType.O)){
+                    im.setImageDrawable(getDrawable(R.drawable.o));
+                }else{
+                    im.setImageDrawable(getDrawable(R.drawable.x));
+                }
+            }
+            i++;
+        }
+    }
+
 }
