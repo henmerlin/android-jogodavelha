@@ -3,6 +3,7 @@ package android.br.jogodavelha;
 import android.br.jogodavelha.model.CampoJogo;
 import android.br.jogodavelha.model.JogadorType;
 import android.br.jogodavelha.model.JogoDaVelha;
+import android.br.jogodavelha.model.JogoDaVelhaSingleton;
 
 import org.junit.Test;
 
@@ -19,13 +20,13 @@ public class JogoDaVelhaFacadeUnitTest {
 
     @Test
     public void test_JogoDaVelha() throws Exception {
-        j = new JogoDaVelha();
+        j = JogoDaVelhaSingleton.getInstance();
 
-        j.realizarJogada(new CampoJogo(1, 1));
-        j.realizarJogada(new CampoJogo(1, 2));
-        j.realizarJogada(new CampoJogo(1, 3));
+        j.realizarJogada(new CampoJogo(1, 1)); // O
+        j.realizarJogada(new CampoJogo(1, 2)); // X
+        j.realizarJogada(new CampoJogo(1, 3)); // O
 
-        assertEquals(4, 2 + 2);
+        assertEquals(j.getVencedor(), null);
     }
 
 }

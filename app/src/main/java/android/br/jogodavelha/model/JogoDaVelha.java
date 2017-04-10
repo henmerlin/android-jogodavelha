@@ -4,6 +4,7 @@ import android.br.jogodavelha.exception.BloqueadoException;
 import android.br.jogodavelha.exception.CampoPreenchidorException;
 import android.br.jogodavelha.exception.EmpateException;
 import android.br.jogodavelha.exception.VencedorException;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,9 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
         try {
             this.buscaCampo(c).setDono(vez);
             this.verificarJogoAcabou();
+           // Log.d("Jogada Realizada", "Linha: " + c.getLinha() + " Classe: " + c.getColuna());
         } catch (VencedorException e) {
+            //Log.d("Vencedor", e.getMessage());
             this.mensagem = e.getMessage();
             this.blocked = true;
             throw e;
@@ -57,6 +60,7 @@ public class JogoDaVelha extends JogoDaVelhaValidacao {
             this.blocked = true;
             throw e;
         } catch (EmpateException e) {
+            //Log.d("EmpateException", e.getMessage());
             this.mensagem = e.getMessage();
             this.blocked = true;
             throw e;
