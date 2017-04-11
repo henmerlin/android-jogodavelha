@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_app">20dp</dimen>
-    <dimen name="image">100dp</dimen>
-    <dimen name="fontMensagem">20sp</dimen>
+    <dimen name="image">60dp</dimen>
+    <dimen name="fontMensagem">15sp</dimen>
 </resources>

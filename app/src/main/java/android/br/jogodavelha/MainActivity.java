@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mensagem = (TextView) findViewById(R.id.mensagem);
         vez = (TextView) findViewById(R.id.vez);
         vez.setText(j.getVez().name());
+        mensagem.setText(j.getMensagem());
 
         imgs.add((ImageView) findViewById(R.id.img1));
         imgs.add((ImageView) findViewById(R.id.img2));

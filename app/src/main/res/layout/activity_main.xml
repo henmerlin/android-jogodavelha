@@ -14,7 +14,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,6 +25,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/vez"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/mensagem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/fontMensagem"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,7 +54,6 @@
                     android:id="@+id/img1"
                     android:layout_width="@dimen/image"
                     android:layout_height="@dimen/image"
-                    android:background="@drawable/border"
                     android:scaleType="centerInside"
                     android:src="@drawable/vazio" />
 
@@ -58,7 +69,6 @@
                     android:id="@+id/img3"
                     android:layout_width="@dimen/image"
                     android:layout_height="@dimen/image"
-                    android:background="@drawable/border"
                     android:scaleType="centerInside"
                     android:src="@drawable/vazio" />
             </LinearLayout>
@@ -100,7 +110,6 @@
                     android:id="@+id/img7"
                     android:layout_width="@dimen/image"
                     android:layout_height="@dimen/image"
-                    android:background="@drawable/border"
                     android:scaleType="centerInside"
                     android:src="@drawable/vazio" />
 
@@ -116,20 +125,8 @@
                     android:id="@+id/img9"
                     android:layout_width="@dimen/image"
                     android:layout_height="@dimen/image"
-                    android:background="@drawable/border"
                     android:scaleType="centerInside"
                     android:src="@drawable/vazio" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/mensagem"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="@dimen/fontMensagem" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
